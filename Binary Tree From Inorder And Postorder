@@ -1,0 +1,92 @@
+Binary Tree From Inorder And Postorder
+Given the inorder and postorder traversal of a tree, construct the binary tree.
+
+NOTE: You may assume that duplicates do not exist in the tree.
+
+
+
+Problem Constraints
+1 <= number of nodes <= 105
+
+
+
+Input Format
+First argument is an integer array A denoting the inorder traversal of the tree.
+
+Second argument is an integer array B denoting the postorder traversal of the tree.
+
+
+
+Output Format
+Return the root node of the binary tree.
+
+
+
+Example Input
+Input 1:
+
+ A = [2, 1, 3]
+ B = [2, 3, 1]
+Input 2:
+
+ A = [6, 1, 3, 2]
+ B = [6, 3, 2, 1]
+
+
+Example Output
+Output 1:
+
+   1
+  / \
+ 2   3
+Output 2:
+
+   1  
+  / \
+ 6   2
+    /
+   3
+
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public TreeNode buildTree(int[] A, int[] B) {
+        int inor = A.length -1;
+        int posto = B.length -1;
+        int stino=0;
+        int stposto=0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int i=0;
+        while(i<=inor){
+                map.put(A[i],i);
+            i++;
+        }
+        return greentree(A,B, stino,inor,posto,map);
+    }                                            //0   //n-1 //n-1
+    static TreeNode greentree(int [] ino, int [] pos, int stino, int inor, int posto,HashMap<Integer,Integer> map){
+        
+
+        if(stino>inor){
+            return null;
+        }
+        TreeNode root = new TreeNode(pos[posto]);
+        int position= map.get(pos[posto]); //inorder position
+        int  cntl = position-stino;
+        int  cntr = inor-position;
+        root.left  = greentree(ino,pos,stino,position-1,posto-cntr-1,map);
+        root.right = greentree(ino,pos,position+1,inor,posto-1,map);
+        return root;
+
+    }
+}
