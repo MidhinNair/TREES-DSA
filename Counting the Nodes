@@ -1,0 +1,64 @@
+Counting the Nodes
+Given the root of a tree A with each node having a certain value, find the count of nodes with more value than all its ancestor.
+
+
+
+Problem Constraints
+1 <= Number of Nodes <= 200000
+
+1 <= Value of Nodes <= 2000000000
+
+
+
+Input Format
+The first and only argument of input is a tree node.
+
+
+
+Output Format
+Return a single integer denoting the count of nodes that have more value than all of its ancestors.
+
+
+
+Example Input
+Input 1:
+
+ 
+     3
+Input 2:
+
+ 
+    4
+   / \
+  5   2
+     / \
+    3   6
+
+
+Example Output
+Output 1:
+
+ 1 
+Output 2:
+
+ 3
+ SOLUTION 
+ 
+    static int ans=0;
+    public int solve(TreeNode A) {  
+           this.ans=0;
+            return inorder(A,0);
+        
+    }
+
+    int inorder(TreeNode root,int mx){
+        
+        if(root==null)
+        return 0;
+        int curmax=Math.max(root.val,mx);
+        this.ans=inorder(root.left,curmax)+inorder(root.right,curmax);
+        if(root.val>mx){
+            ans++;
+        }
+        return ans;
+    }
