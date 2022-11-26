@@ -1,0 +1,248 @@
+
+################################################################PREEORDER TRAVERSAL################################################################
+ Given a binary tree, return the preorder traversal of its nodes values.
+
+NOTE: Using recursion is not allowed.
+
+
+
+Problem Constraints
+1 <= number of nodes <= 105
+
+
+
+Input Format
+First and only argument is root node of the binary tree, A.
+
+
+
+Output Format
+Return an integer array denoting the preorder traversal of the given binary tree.
+
+
+
+Example Input
+Input 1:
+
+   1
+    \
+     2
+    /
+   3
+Input 2:
+
+   1
+  / \
+ 6   2
+    /
+   3
+
+
+Example Output
+Output 1:
+
+ [1, 2, 3]
+Output 2:
+
+ [1, 6, 2, 3]
+   public ArrayList<Integer> preorderTraversal(TreeNode A) {
+        Stack <TreeNode> q= new Stack<>();
+        ArrayList <Integer> ans = new ArrayList<>();
+        q.push(A);
+         if(A==null){
+        return ans;
+        }
+        while(!q.isEmpty()){
+         TreeNode cur=q.pop();
+         ans.add(cur.val);
+         
+        if(cur.right!=null){
+           q.push(cur.right);
+        }
+        if(cur.left!=null){
+              q.push(cur.left);
+        }    
+        }
+        return ans;
+    }
+##################################################################### INORDER TRAVERSAL  ####################################################################
+ 
+ Given a binary tree, return the inorder traversal of its nodes' values.
+
+NOTE: Using recursion is not allowed.
+
+
+
+Problem Constraints
+1 <= number of nodes <= 105
+
+
+
+Input Format
+First and only argument is root node of the binary tree, A.
+
+
+
+Output Format
+Return an integer array denoting the inorder traversal of the given binary tree.
+
+
+
+Example Input
+Input 1:
+
+   1
+    \
+     2
+    /
+   3
+Input 2:
+
+   1
+  / \
+ 6   2
+    /
+   3
+
+
+Example Output
+Output 1:
+
+ [1, 3, 2]
+Output 2:
+
+ [6, 1, 3, 2]
+ 
+  //ITERATIVE
+  public ArrayList<Integer> inorderTraversal(TreeNode root) {
+          TreeNode current, node;
+        ArrayList<Integer> result=new ArrayList<>();
+        current= root;
+        while(current != null) {
+            if(current.left == null){
+            result.add(current.val);
+            current=current.right;
+
+            }
+            else{
+                node=current.left;
+                while(node.right!=null && ! current.equals(node.right))
+                node=node.right;
+                if(node.right == null){
+                    node.right = current;
+                    current=current.left;
+                }
+                else{
+                    current=node.right;
+                    node.right = null;
+                    result.add(current.val);
+                    current=current.right;
+
+                }
+            }
+            }
+            return result;
+        
+    }
+    ############################################################# POSTORDER TRAVERSAL ####################################################################
+    Given a binary tree, return the Postorder traversal of its nodes values.
+
+NOTE: Using recursion is not allowed.
+
+
+
+Problem Constraints
+1 <= number of nodes <= 105
+
+
+
+Input Format
+First and only argument is root node of the binary tree, A.
+
+
+
+Output Format
+Return an integer array denoting the Postorder traversal of the given binary tree.
+
+
+
+Example Input
+Input 1:
+
+   1
+    \
+     2
+    /
+   3
+Input 2:
+
+   1
+  / \
+ 6   2
+    /
+   3
+
+
+Example Output
+Output 1:
+
+ [3, 2, 1]
+Output 2:
+
+ [6, 3, 2, 1]
+  public ArrayList<Integer> postorderTraversal(TreeNode A) {
+        Stack <TreeNode> st= new Stack<>();
+        Stack <TreeNode> st1= new Stack<>();
+        ArrayList <Integer> ans = new ArrayList<>();
+        if(A==null){
+        return ans;
+        }
+        TreeNode cur=A;
+        st.push(A);
+        while(!st.isEmpty()){
+                cur=st.pop();
+                st1.push(cur);
+                if(cur.left!=null){
+                    st.push(cur.left);
+                }
+                if(cur.right!=null){
+                    st.push(cur.right);
+                }
+
+            }
+        
+        while(!st1.isEmpty()){
+            TreeNode an =st1.pop();
+            ans.add(an.val);
+        }
+        return ans;
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                        RECURSSIVE CODE FOR PRE/INORDER/POST
+                                        
+                                        PREORDER
+                                        solution preorder(TreeNode A){
+                                        System.out.print(A.val+" ");
+                                        preorder(A.left);
+                                        preorder(A.right);
+                                        }
+                                       INORDER
+                                       solution inoreder(TreeNode A){ 
+                                        inoreder(A.left);
+                                        System.out.print(A.val+" ");
+                                        inoreder(A.right);
+                                        }
+                                        POSTORDER
+                                        solution postorder(TreeNode A){ 
+                                        postorder(A.left);                                       
+                                        postorder(A.right);
+                                        System.out.print(A.val+" ");
+                                        }
+                                        
+                                       
+                                        
+                                        
+                                        }
+    
